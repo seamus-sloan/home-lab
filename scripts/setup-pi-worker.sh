@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copy this file & the .env onto the worker pi:
+#  scp scripts/setup-pi-worker.sh .env pi@worker:~/
 
 # Color definitions
 RED='\033[0;31m'
@@ -71,25 +73,18 @@ fi
 ##############################
 # Step 4: Install K3S Worker #
 ##############################
-curl -sfL https://get.k3s.io | sh -s - \
-  K3S_URL="${K3S_URL}" \
-  K3S_TOKEN="${K3S_TOKEN}" \
-  sudo sh -s - agent
-
-
-##########################
-# Step 5: Label the node #
-##########################
-kubectl label nodes ${CURRENT_HOSTNAME} node-role=worker
+echo -e "${BLUE}Installing K3S agent...${NC}"
+curl -sfL https://get.k3s.io | K3S_URL="${K3S_URL}" K3S_TOKEN="${K3S_TOKEN}" sh -s - agent
 
 
 #############################
-# Step 6: Verify K3S Worker #
+# Step 5: Verify K3S Worker #
 #############################
 echo -e "${GREEN}All done!${NC}"
 echo -e "${YELLOW}Some helpful tips:${NC}"
 echo -e "\t* Check the node status from the server with ${GREEN}kubectl get nodes -o wide${NC}"
-echo -e "\t* Check the node labels with ${GREEN}kubectl get nodes -show-labels${NC}"
+echo -e "\t* Label this node from the server with ${GREEN}kubectl label nodes ${CURRENT_HOSTNAME} node-role.kubernetes.io/worker=worker${NC}"
+echo -e "\t* Check the node labels with ${GREEN}kubectl get nodes --show-labels${NC}"
 echo -e "\t* Check the logs with ${GREEN}sudo journalctl -u k3s-agent -n 50 --no-pager${NC}"
 echo -e "\t* Make sure you can ping the server ${GREEN}ping ${K3S_URL}${NC}"
 echo -e "\n\n\n"
