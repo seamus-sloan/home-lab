@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  namespace: default
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  kubernetes.yaml: |
+    mode: cluster
+  settings.yaml: |
+    ---
+    background:
+      image: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+      blur: s
+    cardBlur: m
+    headerStyle: boxedWidgets
+    showStats: true
+    statusStyle: "basic"
+  custom.css: ""
+  custom.js: ""
+  bookmarks.yaml: |
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+  services.yaml: |
+    - Homelab:
+        - Kubernetes Dashboard:
+            href: http://stormfather:30080/
+    - Network:
+        - UniFi Controller:
+            href: {{HOMEPAGE_VAR_UNIFI_URL}}
+            widget:
+              type: unifi
+              url: {{HOMEPAGE_VAR_UNIFI_URL}}
+              username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
+              password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+              # key: {{HOMEPAGE_VAR_UNIFI_API_KEY}}
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - resources:
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+        network: default
+    - search:
+        provider: duckduckgo
+        target: _blank
+    # - unifi_console:
+    #     url: ${HOMEPAGE_VAR_UNIFI_URL}
+    #     key: ${HOMEPAGE_VAR_UNIFI_API_KEY}
+  docker.yaml: ""
