@@ -35,3 +35,12 @@ nano userconf.txt
 # Eject the media & insert into a pi
 cd ~ && diskutil eject /Volumes/bootfs
 ```
+
+## Note on DNS
+I wanted a way that I could navigate to my apps via nice, neat URLs like `homepage.sloan.com` or `grafana.sloan.com`. This meant that I needed to set up some sort of DNS server locally -- separate from the Kubernetes cluster.
+
+To achieve this, I set up [pihole](https://docs.pi-hole.net/) on a pi that is NOT a worker node on this cluster and made it the first DNS server on my Unifi router. This pi, however, is also currently running my [Home Library](https://github.com/seamus-sloan/home-library) application. This means that to access the pihole, I needed to use port 8081 (rather than 8080) for the pihole webpage.
+
+Once navigated to `http://192.168.1.101:8081/admin`, I can now see all of the pihole settings and create the appropriate A records within `https://192.168.1.101:8081/admin/settings/dnsrecords` (the left panel).
+
+Since k8s uses the controlplane as the entry point for all applications, I only need to add the specified domain as a DNS record (i.e. `homepage.sloan.com | 192.168.1.99`) and then adjust the `ingress.yaml` for the application (i.e. `- host: homepage.sloan.com`). 

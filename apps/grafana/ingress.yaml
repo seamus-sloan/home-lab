@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: grafana.homelab.lan
+    - host: grafana.sloan.com
       http:
         paths:
           - path: /

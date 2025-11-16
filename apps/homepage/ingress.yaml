@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: homepage.homelab.lan
+    - host: homepage.sloan.com
       http:
         paths:
           - path: /

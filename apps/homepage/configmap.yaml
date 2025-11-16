@@ -95,17 +95,17 @@ data:
               description: ""
         - Homepage:
             - icon: home-assistant.png
-              href: http://homepage.homelab.lan
+              href: http://homepage.sloan.com
               description: ""
         - Grafana:
             - icon: grafana.png
-              href: http://grafana.homelab.lan
+              href: http://grafana.sloan.com
               description: ""
   services.yaml: |
     - Homelab:
         - Homepage Dashboard:
             icon: home-assistant.png
-            href: http://homepage.homelab.lan
+            href: http://homepage.sloan.com
             description: Service dashboard & quick links
         - Kubernetes Dashboard:
             icon: kubernetes.png
@@ -113,7 +113,7 @@ data:
             description: Cluster management
         - Grafana:
             icon: grafana.png
-            href: http://grafana.homelab.lan
+            href: http://grafana.sloan.com
             description: Metrics visualization & monitoring
     - Network:
         - UniFi Controller:
