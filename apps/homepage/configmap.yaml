@@ -89,6 +89,10 @@ data:
               href: https://grafana.com/docs/
               description: ""
     - Quick Links:
+        - Homelab:
+            - icon: book.png
+              href: http://library.bengal-marlin.ts.net/
+              description: ""
         - Homepage:
             - icon: home-assistant.png
               href: http://homepage.homelab.lan
