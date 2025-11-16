@@ -8,13 +8,23 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: home.homelab.lan
+    - host: homepage.homelab.lan
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: homepage-service
+                name: homepage
+                port:
+                  number: 80
+    - host: stormfather.bengal-marlin.ts.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homepage
                 port:
                   number: 80
