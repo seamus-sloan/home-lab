@@ -10,33 +10,117 @@ data:
     mode: cluster
   settings.yaml: |
     ---
+    title: Homelab Dashboard
     background:
-      image: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
-      blur: s
-    cardBlur: m
-    headerStyle: boxedWidgets
+      image: https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2560&q=80
+      blur: sm
+      saturate: 50
+      brightness: 50
+    cardBlur: md
+    theme: dark
+    color: slate
+    headerStyle: clean
+    layout:
+      - Homelab:
+          style: row
+          columns: 3
+      - Network:
+          style: row
+          columns: 2
+      - Monitoring:
+          style: row
+          columns: 2
     showStats: true
-    statusStyle: "basic"
-  custom.css: ""
+    statusStyle: "dot"
+    quicklaunch:
+      searchDescriptions: true
+      hideInternetSearch: false
+      hideVisitURL: false
+  custom.css: |
+    :root {
+      --custom-accent: #00d9ff;
+      --custom-glow: 0 0 20px rgba(0, 217, 255, 0.3);
+    }
+    
+    .service-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--custom-glow);
+      border-color: var(--custom-accent);
+    }
+    
+    .bookmark {
+      transition: all 0.2s ease;
+    }
+    
+    .bookmark:hover {
+      transform: scale(1.05);
+      filter: brightness(1.2);
+    }
+    
+    h2 {
+      background: linear-gradient(90deg, var(--custom-accent), #00a8cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
   custom.js: ""
   bookmarks.yaml: |
-    - Developer:
+    - Development:
         - Github:
-            - abbr: GH
+            - icon: github.png
               href: https://github.com/
+              description: ""
+        - ChatGPT:
+            - icon: openai.png
+              href: https://chat.openai.com/
+              description: ""
+    - Documentation:
+        - Kubernetes Docs:
+            - icon: kubernetes.png
+              href: https://kubernetes.io/docs/
+              description: ""
+        - Grafana Docs:
+            - icon: grafana.png
+              href: https://grafana.com/docs/
+              description: ""
+    - Quick Links:
+        - Homepage:
+            - icon: home-assistant.png
+              href: http://homepage.homelab.lan
+              description: ""
+        - Grafana:
+            - icon: grafana.png
+              href: http://grafana.homelab.lan
+              description: ""
   services.yaml: |
     - Homelab:
+        - Homepage Dashboard:
+            icon: home-assistant.png
+            href: http://homepage.homelab.lan
+            description: Service dashboard & quick links
         - Kubernetes Dashboard:
+            icon: kubernetes.png
             href: http://stormfather:30080/
+            description: Cluster management
+        - Grafana:
+            icon: grafana.png
+            href: http://grafana.homelab.lan
+            description: Metrics visualization & monitoring
     - Network:
         - UniFi Controller:
+            icon: unifi.png
             href: {{HOMEPAGE_VAR_UNIFI_URL}}
+            description: Network management & devices
             widget:
               type: unifi
               url: {{HOMEPAGE_VAR_UNIFI_URL}}
               username: {{HOMEPAGE_VAR_UNIFI_USERNAME}}
               password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
-              # key: {{HOMEPAGE_VAR_UNIFI_API_KEY}}
   widgets.yaml: |
     - kubernetes:
         cluster:
