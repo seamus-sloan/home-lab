@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scraperr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scraperr
+  template:
+    metadata:
+      labels:
+        app: scraperr
+    spec:
+      containers:
+        - name: scraperr
+          
+          image: "jpyles0524/scraperr:latest"
+          
+          imagePullPolicy: IfNotPresent
+          command: ["npm","run","start"]
+          ports:
+            - containerPort: 3000
+          env: 
+            - name: NEXT_PUBLIC_API_URL
+              value: http://scraperr-api:8000
+            - name: SERVER_URL
+              value: http://scraperr-api:8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scraperr-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scraperr-api
+  template:
+    metadata:
+      labels:
+        app: scraperr-api
+    spec:
+      containers:
+        - name: scraperr-api
+          
+          image: "jpyles0524/scraperr_api:latest"
+          
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env: 
+            - name: LOG_LEVEL
+              value: INFO
+          volumeMounts: 
+            - mountPath: /project/app/data
+              name: data
+            - mountPath: /project/app/media
+              name: media
+      volumes: 
+            - hostPath:
+                path: /data/scraperr/data
+                type: DirectoryOrCreate
+              name: data
+            - hostPath:
+                path: /data/scraperr/media
+              name: media
