@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  
+  # This points to the applications/ directory
+  source:
+    repoURL: https://github.com/seamus-sloan/home-lab.git
+    targetRevision: main
+    path: argocd/applications
+  
+  # Deploy to the argocd namespace (where Application CRDs live)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
