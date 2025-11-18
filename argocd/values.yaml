@@ -1,0 +1,13 @@
+argo-cd:
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hostname: argocd.sloan.com
+      tls: true
+      #   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      #   nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  
+  configs:
+    params:
+      "server.insecure": "true"
