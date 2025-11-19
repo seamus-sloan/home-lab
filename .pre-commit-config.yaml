@@ -16,7 +16,7 @@ repos:
 
   - repo: local
     hooks:
-      - id: kubeconform
+      - id: kubeconform  
         name: Validate Kubernetes manifests
         entry: bash -c 'kubeconform -summary -ignore-missing-schemas -ignore-filename-pattern "ingress-nginx/" apps/ argocd/applications/ cluster/'
         language: system
