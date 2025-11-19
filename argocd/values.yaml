@@ -1,3 +1,4 @@
+# helm dependency update argocd
 # helm upgrade argocd argo/argo-cd --namespace argocd -f argocd/values.yaml
 
 argo-cd:
