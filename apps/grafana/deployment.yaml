@@ -54,6 +54,12 @@ spec:
             - mountPath: /etc/grafana/provisioning/datasources
               name: grafana-datasources
               readOnly: true
+            - mountPath: /etc/grafana/provisioning/dashboards
+              name: grafana-dashboards-config
+              readOnly: true
+            - mountPath: /etc/dashboards
+              name: grafana-dashboard-homelab
+              readOnly: true
       volumes:
         - name: grafana-pv
           persistentVolumeClaim:
@@ -61,3 +67,9 @@ spec:
         - name: grafana-datasources
           configMap:
             name: grafana-datasources
+        - name: grafana-dashboards-config
+          configMap:
+            name: grafana-dashboards-config
+        - name: grafana-dashboard-homelab
+          configMap:
+            name: grafana-dashboard-homelab
