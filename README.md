@@ -69,7 +69,7 @@ brew install kubeconform
 pre-commit install
 ```
 
-Now linting will run automatically on every commit! 
+Now linting will run automatically on every commit!
 
 ### Manual Usage
 
@@ -85,4 +85,4 @@ pre-commit run --all-files
 
 ### CI/CD
 
-Linting also runs automatically on all pushes and pull requests via GitHub Actions. See `.github/workflows/lint.yaml` for details. 
+Linting also runs automatically on all pushes and pull requests via GitHub Actions. See `.github/workflows/lint.yaml` for details.
