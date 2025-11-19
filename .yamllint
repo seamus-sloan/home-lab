@@ -1,0 +1,45 @@
+---
+extends: default
+
+ignore: |
+  argocd/charts/
+
+rules:
+  # Allow longer lines for URLs and base64 encoded data
+  line-length:
+    max: 120
+    level: warning
+
+  # Allow inline mappings for simple Kubernetes labels/annotations
+  braces:
+    max-spaces-inside: 1
+    level: error
+
+  # Allow inline sequences for simple arrays
+  brackets:
+    max-spaces-inside: 1
+    level: error
+
+  # Don't require document start markers (---)
+  document-start: disable
+
+  # Allow duplicate keys in different documents
+  document-end: disable
+
+  # Kubernetes manifests often have many blank lines for readability
+  empty-lines:
+    max: 2
+
+  # Indentation: 2 spaces (standard for K8s)
+  indentation:
+    spaces: 2
+    indent-sequences: true
+
+  # Don't complain about truthy values (yes/no, on/off)
+  truthy:
+    allowed-values: ['true', 'false', 'yes', 'no', 'on', 'off']
+    check-keys: false
+
+  # Allow comments without space after # for helm/argocd directives
+  comments:
+    min-spaces-from-content: 1

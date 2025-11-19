@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,12 @@ spec:
     spec:
       containers:
         - name: scraperr
-          
-          image: "jpyles0524/scraperr:latest"
-          
+          image: jpyles0524/scraperr:latest
           imagePullPolicy: IfNotPresent
-          command: ["npm","run","start"]
+          command: [npm, run, start]
           ports:
             - containerPort: 3000
-          env: 
+          env:
             - name: NEXT_PUBLIC_API_URL
               value: http://scraperr-api:8000
             - name: SERVER_URL
@@ -45,25 +44,23 @@ spec:
     spec:
       containers:
         - name: scraperr-api
-          
-          image: "jpyles0524/scraperr_api:latest"
-          
+          image: jpyles0524/scraperr_api:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
-          env: 
+          env:
             - name: LOG_LEVEL
               value: INFO
-          volumeMounts: 
+          volumeMounts:
             - mountPath: /project/app/data
               name: data
             - mountPath: /project/app/media
               name: media
-      volumes: 
-            - hostPath:
-                path: /data/scraperr/data
-                type: DirectoryOrCreate
-              name: data
-            - hostPath:
-                path: /data/scraperr/media
-              name: media
+      volumes:
+        - hostPath:
+            path: /data/scraperr/data
+            type: DirectoryOrCreate
+          name: data
+        - hostPath:
+            path: /data/scraperr/media
+          name: media

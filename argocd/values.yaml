@@ -1,6 +1,6 @@
+---
 # helm dependency update argocd
 # helm upgrade argocd argo/argo-cd --namespace argocd -f argocd/values.yaml
-
 argo-cd:
   server:
     ingress:
@@ -9,9 +9,8 @@ argo-cd:
       hostname: argocd.sloan.com
       tls: false
       annotations:
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-        nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/ssl-redirect: 'false'
   configs:
     params:
-      "server.insecure": "true"
+      server.insecure: 'true'

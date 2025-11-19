@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,11 +23,11 @@ spec:
       enableServiceLinks: true
       containers:
         - name: homepage
-          image: "ghcr.io/gethomepage/homepage:latest"
+          image: ghcr.io/gethomepage/homepage:latest
           imagePullPolicy: Always
           env:
             - name: HOMEPAGE_ALLOWED_HOSTS
-              value: "*"
+              value: '*'
             - name: HOMEPAGE_VAR_UNIFI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -43,7 +44,7 @@ spec:
                   name: homepage-secrets
                   key: unifi-password
             - name: HOMEPAGE_VAR_UNIFI_URL
-              value: "https://unifi"
+              value: https://unifi
           ports:
             - name: http
               containerPort: 3000

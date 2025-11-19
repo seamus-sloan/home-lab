@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,9 +22,9 @@ spec:
       tolerations:
         - key: node-role.kubernetes.io/control-plane
           operator: Equal
-          value: "true"
+          value: 'true'
           effect: NoSchedule
-      
+
       # Require GPU nodes
       affinity:
         nodeAffinity:
@@ -32,9 +33,7 @@ spec:
               - matchExpressions:
                   - key: node-role.kubernetes.io/gpu
                     operator: In
-                    values:
-                      - "true"
-      
+                    values: ['true']
       containers:
         - name: ollama
           image: ollama/ollama:latest
@@ -42,24 +41,21 @@ spec:
             - name: http
               containerPort: 11434
               protocol: TCP
-          
+
           # Resource limits to protect the control plane
           resources:
             requests:
-              memory: "2Gi"
-              cpu: "500m"
+              memory: 2Gi
+              cpu: 500m
             limits:
-              memory: "8Gi"  # Adjust based on your control plane capacity
-              cpu: "4"       # Adjust based on your control plane capacity
-          
+              memory: 8Gi  # Adjust based on your control plane capacity
+              cpu: '4'  # Adjust based on your control plane capacity
           env:
             - name: OLLAMA_HOST
-              value: "0.0.0.0:11434"
-          
+              value: 0.0.0.0:11434
           volumeMounts:
             - name: ollama-data
               mountPath: /root/.ollama
-          
           livenessProbe:
             httpGet:
               path: /
@@ -68,7 +64,6 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 3
-          
           readinessProbe:
             httpGet:
               path: /
@@ -77,7 +72,6 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 3
-      
       volumes:
         - name: ollama-data
           persistentVolumeClaim:

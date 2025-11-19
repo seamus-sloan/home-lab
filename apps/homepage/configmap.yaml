@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38,37 +39,32 @@ data:
       hideVisitURL: false
   custom.css: |
     :root {
-      --custom-accent: #00d9ff;
+      --custom-accent:  # 00d9ff;
       --custom-glow: 0 0 20px rgba(0, 217, 255, 0.3);
     }
-    
     .service-card {
       transition: all 0.3s ease;
       border: 1px solid rgba(0, 217, 255, 0.2);
     }
-    
     .service-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--custom-glow);
       border-color: var(--custom-accent);
     }
-    
     .bookmark {
       transition: all 0.2s ease;
     }
-    
     .bookmark:hover {
       transform: scale(1.05);
       filter: brightness(1.2);
     }
-    
     h2 {
-      background: linear-gradient(90deg, var(--custom-accent), #00a8cc);
+      background: linear-gradient(90deg, var(--custom-accent),  # 00a8cc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 600;
     }
-  custom.js: ""
+  custom.js: ''
   bookmarks.yaml: |
     - Development:
         - Github:
@@ -150,4 +146,4 @@ data:
     # - unifi_console:
     #     url: ${HOMEPAGE_VAR_UNIFI_URL}
     #     key: ${HOMEPAGE_VAR_UNIFI_API_KEY}
-  docker.yaml: ""
+  docker.yaml: ''

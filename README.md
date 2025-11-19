@@ -43,4 +43,46 @@ To achieve this, I set up [pihole](https://docs.pi-hole.net/) on a pi that is NO
 
 Once navigated to `http://192.168.1.101:8081/admin`, I can now see all of the pihole settings and create the appropriate A records within `https://192.168.1.101:8081/admin/settings/dnsrecords` (the left panel).
 
-Since k8s uses the controlplane as the entry point for all applications, I only need to add the specified domain as a DNS record (i.e. `homepage.sloan.com | 192.168.1.99`) and then adjust the `ingress.yaml` for the application (i.e. `- host: homepage.sloan.com`). 
+Since k8s uses the controlplane as the entry point for all applications, I only need to add the specified domain as a DNS record (i.e. `homepage.sloan.com | 192.168.1.99`) and then adjust the `ingress.yaml` for the application (i.e. `- host: homepage.sloan.com`).
+
+## Linting
+
+This repo uses `yamllint` and `kubeconform` to ensure YAML files are well-formatted and Kubernetes manifests are valid.
+
+### Installation
+
+**Install pre-commit and tools:**
+```sh
+# Install pre-commit
+pip install pre-commit
+
+# Install kubeconform
+# macOS
+brew install kubeconform
+
+# Linux
+# Download from https://github.com/yannh/kubeconform/releases
+```
+
+**Set up pre-commit hooks:**
+```sh
+pre-commit install
+```
+
+Now linting will run automatically on every commit! 
+
+### Manual Usage
+
+Run all linting checks manually:
+```sh
+./scripts/lint.sh
+```
+
+Or run pre-commit on all files:
+```sh
+pre-commit run --all-files
+```
+
+### CI/CD
+
+Linting also runs automatically on all pushes and pull requests via GitHub Actions. See `.github/workflows/lint.yaml` for details. 

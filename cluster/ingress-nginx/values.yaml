@@ -1,9 +1,10 @@
+---
 # Usage:
-#   helm upgrade ingress-nginx ingress-nginx/ingress-nginx 
-#     -n ingress-nginx 
-#     -f /home-lab/cluster/ingress-nginx/values.yaml
-
+#   helm upgrade ingress-nginx ingress-nginx/ingress-nginx
+#   -n ingress-nginx
+#   -f /home-lab/cluster/ingress-nginx/values.yaml
 controller:
+  kind: Service
   service:
     type: LoadBalancer
     externalTrafficPolicy: Local

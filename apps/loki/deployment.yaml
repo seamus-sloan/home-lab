@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,8 +24,7 @@ spec:
       containers:
         - name: loki
           image: grafana/loki:latest
-          args:
-            - -config.file=/etc/loki/loki.yaml
+          args: [-config.file=/etc/loki/loki.yaml]
           ports:
             - name: http
               containerPort: 3100

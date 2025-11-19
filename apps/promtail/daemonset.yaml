@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -22,8 +23,7 @@ spec:
       containers:
         - name: promtail
           image: grafana/promtail:latest
-          args:
-            - -config.file=/etc/promtail/promtail.yaml
+          args: [-config.file=/etc/promtail/promtail.yaml]
           env:
             - name: HOSTNAME
               valueFrom:
@@ -55,10 +55,8 @@ spec:
             runAsUser: 0
             readOnlyRootFilesystem: true
             capabilities:
-              drop:
-                - ALL
-              add:
-                - DAC_READ_SEARCH
+              drop: [ALL]
+              add: [DAC_READ_SEARCH]
       volumes:
         - name: config
           configMap:

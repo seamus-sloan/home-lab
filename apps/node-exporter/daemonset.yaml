@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -26,11 +27,11 @@ spec:
         - name: node-exporter
           image: prom/node-exporter:latest
           args:
-            - '--path.sysfs=/host/sys'
-            - '--path.rootfs=/host/root'
-            - '--path.procfs=/host/proc'
-            - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-            - '--collector.textfile.directory=/host/root/var/lib/node_exporter/textfile_collector'
+            - --path.sysfs=/host/sys
+            - --path.rootfs=/host/root
+            - --path.procfs=/host/proc
+            - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+            - --collector.textfile.directory=/host/root/var/lib/node_exporter/textfile_collector
           ports:
             - name: metrics
               containerPort: 9100
