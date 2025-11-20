@@ -5,7 +5,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
-        args: ['--unsafe']  # Allow custom YAML tags used by K8s/Helm
+        args: ['--unsafe'] # Allow custom YAML tags used by K8s/Helm
       - id: check-added-large-files
 
   - repo: https://github.com/adrienverge/yamllint
