@@ -21,6 +21,13 @@ spec:
           command: [npm, run, start]
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           env:
             - name: NEXT_PUBLIC_API_URL
               value: http://scraperr-api:8000
@@ -48,9 +55,18 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           env:
             - name: LOG_LEVEL
               value: INFO
+            - name: RECORDINGS_ENABLED
+              value: "true"
           volumeMounts:
             - mountPath: /project/app/data
               name: data
@@ -63,4 +79,5 @@ spec:
           name: data
         - hostPath:
             path: /data/scraperr/media
+            type: DirectoryOrCreate
           name: media
