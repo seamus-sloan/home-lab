@@ -4,7 +4,13 @@
 #   -n ingress-nginx
 #   -f /home-lab/cluster/ingress-nginx/values.yaml
 controller:
-  kind: Service
+  kind: Deployment
+  nodeSelector:
+    kubernetes.io/hostname: stormfather
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
   service:
     type: LoadBalancer
     externalTrafficPolicy: Local
