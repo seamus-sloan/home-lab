@@ -14,3 +14,4 @@ argo-cd:
   configs:
     params:
       server.insecure: 'true'
+      timeout.reconciliation: 45s

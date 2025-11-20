@@ -23,7 +23,8 @@ spec:
   # Sync policy: how ArgoCD should handle syncing
   syncPolicy:
     automated:
-      prune: true  # Delete resources that are no longer in Git
-      selfHeal: true  # Auto-sync when cluster state differs from Git
+      prune: true # Delete resources that are no longer in Git
+      selfHeal: true # Auto-sync when cluster state differs from Git
     syncOptions:
-      - CreateNamespace=true  # Create namespace if it doesn't exist
+      - CreateNamespace=true # Create namespace if it doesn't exist
+      - Replace=true # Force replacement of resources on update
