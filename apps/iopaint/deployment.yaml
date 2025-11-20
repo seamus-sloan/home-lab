@@ -25,17 +25,18 @@ spec:
           effect: NoSchedule
       containers:
         - name: iopaint
-          image: rocm/pytorch:rocm6.0_ubuntu22.04_py3.10_pytorch_2.1.1
+          image: ubuntu:22.04
           command: ["/bin/bash", "-c"]
           args:
             - |
-              apt-get update && apt-get install -y git libgl1 libglib2.0-0 && \
-              pip install git+https://github.com/Sanster/IOPaint.git && \
+              apt-get update && \
+              apt-get install -y python3 python3-pip git libgl1 libglib2.0-0 rocm-dev rocm-libs && \
+              pip3 install --upgrade pip && \
+              pip3 install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.0 && \
+              pip3 install git+https://github.com/Sanster/IOPaint.git && \
               iopaint start --model lama --device cuda --port 8080 --host 0.0.0.0 --model-dir /models
           securityContext:
-            capabilities:
-              add:
-                - SYS_PTRACE
+            privileged: true
           ports:
             - name: http
               containerPort: 8080
