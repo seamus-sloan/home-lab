@@ -25,15 +25,17 @@ spec:
           effect: NoSchedule
       containers:
         - name: iopaint
-          image: python:3.10-slim
+          image: rocm/pytorch:rocm6.0_ubuntu22.04_py3.10_pytorch_2.1.1
           command: ["/bin/bash", "-c"]
           args:
             - |
-              apt-get update && apt-get install -y git libgl1 libglib2.0-0 build-essential && \
-              pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.6 && \
-              pip config set global.index-url https://pypi.org/simple && \
+              apt-get update && apt-get install -y git libgl1 libglib2.0-0 && \
               pip install git+https://github.com/Sanster/IOPaint.git && \
               iopaint start --model lama --device cuda --port 8080 --host 0.0.0.0 --model-dir /models
+          securityContext:
+            capabilities:
+              add:
+                - SYS_PTRACE
           ports:
             - name: http
               containerPort: 8080
