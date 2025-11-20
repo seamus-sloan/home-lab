@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iopaint
+  namespace: default
+  labels:
+    app: iopaint
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iopaint
+  template:
+    metadata:
+      labels:
+        app: iopaint
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: stormfather
+        node-role.kubernetes.io/gpu: "true"
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: iopaint
+          image: ghcr.io/sanster/iopaint:latest
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: IOPAINT_MODEL
+              value: "lama"
+            - name: IOPAINT_DEVICE
+              value: "cuda"
+            - name: IOPAINT_PORT
+              value: "8080"
+            - name: IOPAINT_HOST
+              value: "0.0.0.0"
+            - name: IOPAINT_MODEL_DIR
+              value: "/models"
+          volumeMounts:
+            - name: models
+              mountPath: /models
+            - name: cache
+              mountPath: /root/.cache
+          resources:
+            requests:
+              memory: "4Gi"
+              cpu: "1000m"
+            limits:
+              memory: "8Gi"
+              cpu: "4000m"
+              amd.com/gpu: "1"
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: iopaint-models
+        - name: cache
+          persistentVolumeClaim:
+            claimName: iopaint-cache
