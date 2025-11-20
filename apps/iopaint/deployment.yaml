@@ -25,7 +25,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: iopaint
-          image: ghcr.io/sanster/iopaint:latest
+          image: sanster/iopaint:latest
           ports:
             - name: http
               containerPort: 8080
