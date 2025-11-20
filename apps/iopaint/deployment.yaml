@@ -31,6 +31,7 @@ spec:
             - |
               apt-get update && apt-get install -y git libgl1 libglib2.0-0 build-essential && \
               pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.6 && \
+              pip config set global.index-url https://pypi.org/simple && \
               pip install git+https://github.com/Sanster/IOPaint.git && \
               iopaint start --model lama --device cuda --port 8080 --host 0.0.0.0 --model-dir /models
           ports:
